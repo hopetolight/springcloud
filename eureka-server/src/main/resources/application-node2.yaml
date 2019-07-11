@@ -1,0 +1,14 @@
+server:
+  port: 7602
+
+eureka:
+  instance:
+    hostname: eureka2
+  server:
+    enable-self-preservation: false  # 设为false，关闭自我保护
+    eviction-interval-timer-in-ms: 5000
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: http://eureka1:7601/eureka/
