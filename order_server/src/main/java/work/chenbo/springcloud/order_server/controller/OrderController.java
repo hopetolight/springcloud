@@ -14,14 +14,14 @@ import work.chenbo.springcloud.order_server.service.OrderService;
  * @date 2019/8/12
  */
 @RestController
-@RequestMapping("/v1/order")
+@RequestMapping("/api/v1/order")
 public class OrderController {
 
     @Autowired
     private OrderService orderService;
 
 
-    @RequestMapping("/purchasing")
+    @RequestMapping("purchasing")
     public @ResponseBody Object order(@RequestParam("id") Integer id){
         return orderService.order(id);
     }

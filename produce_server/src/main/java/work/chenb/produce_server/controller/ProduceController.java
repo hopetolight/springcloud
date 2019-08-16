@@ -1,6 +1,7 @@
 package work.chenb.produce_server.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,8 +15,11 @@ import work.chenb.produce_server.service.ProduceService;
  * @date 2019/8/6
  */
 @RestController
-@RequestMapping("api/vi/produce")
+@RequestMapping("/api/vi/produce")
 public class ProduceController {
+
+    @Value("${server.port}")
+    private String port;
 
     @Autowired
     private ProduceService produceService;
@@ -37,6 +41,8 @@ public class ProduceController {
     */
     @RequestMapping("find")
     public @ResponseBody Produce queryProduce(@RequestParam("id") Integer id){
-        return produceService.queryProduceById(id);
+        Produce produce = produceService.queryProduceById(id);
+        produce.setName(produce.getName()+" port form"+port);
+        return produce;
     }
 }
