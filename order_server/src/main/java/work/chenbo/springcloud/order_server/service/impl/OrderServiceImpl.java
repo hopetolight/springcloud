@@ -2,15 +2,11 @@ package work.chenbo.springcloud.order_server.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.client.ServiceInstance;
-import org.springframework.cloud.client.loadbalancer.LoadBalanced;
-import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
-import work.chenbo.springcloud.order_server.domain.Order;
+import work.chenbo.springcloud.order_server.feginClient.ProducerServiceClient;
 import work.chenbo.springcloud.order_server.service.OrderService;
-
-import java.util.Map;
+import work.chenbo.springcloud.order_server_api.domain.Order;
+import work.chenbo.springcloud.produce_service_api.domain.Produce;
 
 /**
  * @className OrderServiceImpl
@@ -21,10 +17,9 @@ import java.util.Map;
 @Slf4j
 public class OrderServiceImpl implements OrderService {
 
-//    @Autowired
-//    private RestTemplate restTemplate;
+
     @Autowired
-    private LoadBalancerClient loadBalancerClient;
+    private ProducerServiceClient producerService;
 
     /**
      * 商品下单
@@ -34,17 +29,12 @@ public class OrderServiceImpl implements OrderService {
      */
     @Override
     public Order order(Integer produce_id) {
-
-        ServiceInstance serviceInstance = loadBalancerClient.choose("produce-server");
-
-        String url = String.format("http:%s:%s/api/vi/produce/find?id=" + produce_id, serviceInstance.getHost(), serviceInstance.getPort());
-
+        Produce produce = producerService.queryProduce(produce_id);
         Order order = new Order(11, 11L, produce_id, 21);
-        Map<String,Object> produceMap = new RestTemplate().getForObject(url, Map.class);
-        log.info("object={}",produceMap);
-        order.setName(produceMap.get("name")+"_order");
-        order.setPrice(Integer.valueOf(produceMap.get("price").toString()));
-        order.setProduce_name(produceMap.get("name").toString());
+        log.info("produce={}",produce);
+        order.setName(produce.getName()+"_order");
+        order.setPrice(produce.getPrice());
+        order.setProduce_name(produce.getName());
         return order;
     }
 }

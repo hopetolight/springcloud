@@ -1,6 +1,6 @@
 package work.chenb.produce_server.service;
 
-import work.chenb.produce_server.domain.Produce;
+import work.chenbo.springcloud.produce_service_api.domain.Produce;
 
 import java.util.List;
 

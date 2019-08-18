@@ -1,6 +1,6 @@
 package work.chenbo.springcloud.order_server.service;
 
-import work.chenbo.springcloud.order_server.domain.Order;
+import work.chenbo.springcloud.order_server_api.domain.Order;
 
 /**
  * @interfaceName OrderService

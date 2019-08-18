@@ -1,7 +1,7 @@
 package work.chenb.produce_server.service.impl;
 
 import org.springframework.stereotype.Service;
-import work.chenb.produce_server.domain.Produce;
+import work.chenbo.springcloud.produce_service_api.domain.Produce;
 import work.chenb.produce_server.service.ProduceService;
 
 import java.util.ArrayList;

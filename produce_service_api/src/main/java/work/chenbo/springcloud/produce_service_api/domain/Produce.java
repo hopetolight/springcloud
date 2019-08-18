@@ -1,4 +1,4 @@
-package work.chenb.produce_server.domain;
+package work.chenbo.springcloud.produce_service_api.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

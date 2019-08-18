@@ -6,8 +6,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import work.chenb.produce_server.domain.Produce;
+import work.chenbo.springcloud.produce_service_api.domain.Produce;
 import work.chenb.produce_server.service.ProduceService;
+import work.chenbo.springcloud.produce_service_api.controller.ProduceControllerApi;
 
 /**
  * @className ProduceController
@@ -15,8 +16,7 @@ import work.chenb.produce_server.service.ProduceService;
  * @date 2019/8/6
  */
 @RestController
-@RequestMapping("/api/vi/produce")
-public class ProduceController {
+public class ProduceController implements ProduceControllerApi {
 
     @Value("${server.port}")
     private String port;
@@ -25,11 +25,11 @@ public class ProduceController {
     private ProduceService produceService;
     
     /**
-    *
-    * @author; ChenBo
-    * @datetime: 2019/8/7
-    */
-    @RequestMapping("list")
+     *
+     * @author; ChenBo
+     * @datetime: 2019/8/7
+     */
+    @Override
     public @ResponseBody Object queryList(){
         return  produceService.queryList();
     }
@@ -39,7 +39,7 @@ public class ProduceController {
     * @author; ChenBo
     * @datetime: 2019/8/7
     */
-    @RequestMapping("find")
+    @Override
     public @ResponseBody Produce queryProduce(@RequestParam("id") Integer id){
         Produce produce = produceService.queryProduceById(id);
         produce.setName(produce.getName()+" port form"+port);

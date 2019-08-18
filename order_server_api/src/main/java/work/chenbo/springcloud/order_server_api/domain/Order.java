@@ -1,4 +1,4 @@
-package work.chenbo.springcloud.order_server.domain;
+package work.chenbo.springcloud.order_server_api.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
