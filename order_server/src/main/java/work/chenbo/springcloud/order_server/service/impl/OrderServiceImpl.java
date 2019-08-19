@@ -2,6 +2,7 @@ package work.chenbo.springcloud.order_server.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import work.chenbo.springcloud.order_server.feginClient.ProducerServiceClient;
 import work.chenbo.springcloud.order_server.service.OrderService;
@@ -19,7 +20,8 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Autowired
-    private ProducerServiceClient producerService;
+    private ProducerServiceClient producerServiceClient;
+
 
     /**
      * 商品下单
@@ -29,10 +31,10 @@ public class OrderServiceImpl implements OrderService {
      */
     @Override
     public Order order(Integer produce_id) {
-        Produce produce = producerService.queryProduce(produce_id);
+        Produce produce = producerServiceClient.queryProduce(produce_id);
         Order order = new Order(11, 11L, produce_id, 21);
         log.info("produce={}",produce);
-        order.setName(produce.getName()+"_order");
+        order.setName(produce.getName());
         order.setPrice(produce.getPrice());
         order.setProduce_name(produce.getName());
         return order;
